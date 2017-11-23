@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+ <!-- Bootstrap -->
+    <link href="{% static "vendors/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static "vendors/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static "vendors/nprogress/nprogress.css" %}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{% static "build/css/custom.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+ {% block content %}
+      <div class="">
+            <div class="page-title">
+        
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Line graph<small>Sessions</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <canvas id="lineChart" ></canvas>
+                  </div>
+                </div>
+              </div>
+      </div>
+    </div>
+{% endblock %}
+    {% block js%}
+    <script src="{% static "vendors/Chart.js/dist/Chart.min.js" %}"></script>
+            <script>var ctx = document.getElementById("lineChart");
+               $.getJSON('/curve/{{id}}', function (arr) {
+                console.log(arr)
+           var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+            labels:  arr["x"],
+                    datasets: [{
+                        label: "Smoothend curve",
+                        backgroundColor: "rgba(38, 185, 154, 0)",
+                        borderColor: "rgba(38, 185, 154, 0.7)",
+                        pointBorderColor: "rgba(38, 185, 154, 0.7)",
+                        pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+                pointHoverBackgroundColor: "#fff",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointBorderWidth: 1,
+                        data: arr["y"]
+            }, 
+                    {
+                        label: "Original curve",
+                        backgroundColor: "rgba(233, 8, 16, 0)",
+                        borderColor: "rgba(234, 8, 6, 0.70)",
+                        pointBorderColor: "rgba(234, 8, 6, 0.70)",
+                        pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+                        pointHoverBackgroundColor: "#fff",
+                        pointHoverBorderColor: "rgba(151,187,205,1)",
+                        pointBorderWidth: 1,
+                        data: arr["old_y"]
+          }]
+        },
+                     
+                     options: {
+        scales: {
+            yAxes: [{
+                stacked: false
+            }]
+        }
+    }
+        });
+            });
+      </script>
+    <!-- Custom Theme Scripts -->
+<!--    <script src="../build/js/custom.min.js"></script>-->
+  {% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+ <!-- Bootstrap -->
+    <link href="{% static "vendors/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static "vendors/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static "vendors/nprogress/nprogress.css" %}" rel="stylesheet">
+    <link href="{% static "vendors/iCheck/skins/flat/green.css" %}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{% static "build/css/custom.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+ {% block content %}
+      
+
+           <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>High Temperature Alert<small></small></h2>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Date and Time</th>
+                          <th>Predicted Temp</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for tuple in above_maximum%}
+                        <tr>
+                          <td>{{tuple.0}}</td>
+                          <td>{{tuple.1}}</td>
+                        </tr>
+                      {% endfor%}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+           <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Low Temperature Alert<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                  <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Date and Time</th>
+                          <th>Predicted Temp</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for tuple in below_minimum%}
+                        <tr>
+                          <td>{{tuple.0}}</td>
+                          <td>{{tuple.1}}</td>
+                        </tr>
+                      {% endfor%}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div
+             
+{% endblock %}
+    {% block js%}
+    <script src="{% static "vendors/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "vendors/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "vendors/fastclick/lib/fastclick.js" %}"></script>
+    <script src="{% static "vendors/nprogress/nprogress.js" %}"></script>
+    <script src="{% static "vendors/iCheck/icheck.min.js" %}"></script>
+<!--    <script src="../build/js/custom.min.js"></script>-->
+	{% endblock %}

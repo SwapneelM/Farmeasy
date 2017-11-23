@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Register Farmer</title>  
+  <!--  <link rel="stylesheet" href="css/style.css"> -->
+<style>
+form {
+  margin:0 auto;
+  width:300px
+}
+input {
+  margin-bottom:3px;
+  padding:10px;
+  width: 100%;
+  border:1px solid #CCC
+}
+button {
+  padding:10px
+}
+label {
+  cursor:pointer
+}
+#form-switch {
+  display:none
+}
+#register-form {
+  display:none
+}
+#form-switch:checked~#register-form {
+  display:block
+}
+#form-switch:checked~#login-form {
+  display:none
+}
+</style>
+</head>
+<body>
+<input type='checkbox' id='form-switch'>
+<br>
+<br>
+<br>
+<form id='login-form' action="registerfarmer" method='post'>
+  {% csrf_token %}
+  <input type="text" placeholder="Name" required name ="name">
+  <input type="text" placeholder="Number" required name = "number">
+  <button type='submit'>Register</button>
+  
+</form> 
+
+</body>
+</html>
